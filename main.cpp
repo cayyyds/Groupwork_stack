@@ -46,3 +46,13 @@ int osp(char op){
         case '&':return 6;
     }
 }//给出各个运算符的栈外优先级
+
+bool isdigit(char ch) {
+    return ch >= '0' && ch <= '9';
+}
+
+bool isoperator(char ch) {
+    return ch=='+' || ch=='-' || ch=='*' || ch=='/' ||
+           ch=='%' || ch=='^' || ch=='&' ||
+           ch=='(' || ch==')' || ch=='=';
+}
