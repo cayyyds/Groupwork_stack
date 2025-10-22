@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/sjy/Desktop/CS/scu/data_structure/Groupwork_stack",
-      "program": "/Users/sjy/Desktop/CS/scu/data_structure/Groupwork_stack/build/Debug/outDebug"
+      "cwd": "/Users/14714/Desktop/Groupwork_stack",
+      "program": "/Users/14714/Desktop/Groupwork_stack/main.cpp"
     }
   ]
 }
