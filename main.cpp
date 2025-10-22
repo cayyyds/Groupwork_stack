@@ -1,21 +1,17 @@
 #include<iostream>
 #include"Stack.h"
 using namespace std;
-
+int isp(char op);
+int osp(char op);
+bool cal(char op,double x,double y,double &r);
+void GetNextChat(char &ch);
+bool isdigit(char ch);
+bool isoperator(char ch);
+bool Get2Operands(LStack<double> &OPEN,double &x,double &y);
 
 int main() {
+    LStack<double> OPEN;
+    LStack<char> OPTR;
 
-    //test LStack
-    LStack<int> stack;
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
-    cout << "Top element: " << stack.topValue() << endl; // Should print 30
-    cout << "Stack size: " << stack.length() << endl; // Should print 3
-    cout << "Popped element: " << stack.pop() << endl; // Should print 30
-    cout << "New top element: " << stack.topValue() << endl; // Should print 20
-    cout << "Stack size after pop: " << stack.length() << endl; // Should print 2
-    stack.clear();
-    cout << "Stack size after clear: " << stack.length() << endl; // Should print 0
-    return 0;
+    
 }
