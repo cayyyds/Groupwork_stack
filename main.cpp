@@ -104,4 +104,12 @@ bool isoperator(char ch) {
            ch=='%' || ch=='^' || ch=='&' ||
            ch=='(' || ch==')' || ch=='=';
 }
-
+//赵晨志编写的GetNextChar函数
+void GetNextChar(char& ch) {
+    do {
+        std::cin.get(ch); // 从输入流读取一个字符到 ch
+    } while (std::isspace(static_cast<unsigned char>(ch)));// 跳过空格、回车、制表符等
+    if (std::cin.eof()) {
+        ch = '\0'; //若到达输入末尾（EOF），将 ch 设为\0，方便外部判断
+    }
+}
