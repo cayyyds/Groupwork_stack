@@ -9,6 +9,42 @@ void GetNextChat(char &ch);
 bool isdigit(char ch);
 bool isoperator(char ch);
 
+
+int main() {
+    LStack<double> OPEN;
+    LStack<char> OPTR;
+    
+}
+//蔡志远编写的isp和osp函数
+int isp(char op){
+    switch(op){
+        case '=':return 0;
+        case '+':return 3;
+        case '-':return 3;
+        case '*':return 5;
+        case '/':return 5;
+        case '%':return 5;
+        case '(':return 1;
+        case ')':return 8;
+        case '^':return 7;
+        case '&':return 7;
+    }
+} //给出各个运算符的栈内优先级
+int osp(char op){
+    switch(op){
+        case '=':return 0;
+        case '+':return 2;
+        case '-':return 2;
+        case '*':return 4;
+        case '/':return 4;
+        case '%':return 4;
+        case '(':return 8;
+        case ')':return 1;
+        case '^':return 6;
+        case '&':return 6;
+    }
+} //给出各个运算符的栈外优先级
+
 // 盛佳一编写Get2Operands函数
 bool Get2Operands(LStack<double> &OPEN,double &x,double &y){
     if (OPEN.length() < 2)
@@ -58,42 +94,7 @@ bool cal(char op, double x, double y, double& r) {
             return false;
 	}
 }
-
-int main() {
-    LStack<double> OPEN;
-    LStack<char> OPTR;
-    
-}
-
-int isp(char op){
-    switch(op){
-        case '=':return 0;
-        case '+':return 3;
-        case '-':return 3;
-        case '*':return 5;
-        case '/':return 5;
-        case '%':return 5;
-        case '(':return 1;
-        case ')':return 8;
-        case '^':return 7;
-        case '&':return 7;
-    }
-} //给出各个运算符的栈内优先级
-int osp(char op){
-    switch(op){
-        case '=':return 0;
-        case '+':return 2;
-        case '-':return 2;
-        case '*':return 4;
-        case '/':return 4;
-        case '%':return 4;
-        case '(':return 8;
-        case ')':return 1;
-        case '^':return 6;
-        case '&':return 6;
-    }
-} //给出各个运算符的栈外优先级
-
+//张羿驰编写的isdigit和isoperator函数
 bool isdigit(char ch) {
     return ch >= '0' && ch <= '9';
 }
