@@ -20,14 +20,24 @@ int main() {
     char ch;
     GetNextChar(ch);
 
-    while (ch != '=') 
+    while (ch != '=') {
     //（1）处理单目负号（负数情况），压入opnd栈
-       
+       if(ch=='-'){
+           
+       }
     //（2）处理小数和整数，压入 OPND
-
+         if(isdigit(ch)||ch=='.'){
+              
+         }
     //（3）处理运算符，压入 OPTR 或计算
-
+        else if(isoperator(ch)){
+            
+        }
+    }
     //（4）处理 '=' 后，把栈中剩余运算符全部计算
+    while (OPTR.topValue() != '=') {
+        
+    }
     cout << "Result = " << OPND.topValue() << endl;
     return 0;
     
