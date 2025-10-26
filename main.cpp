@@ -5,14 +5,31 @@ using namespace std;
 int isp(char op);
 int osp(char op);
 bool cal(char op,double x,double y,double &r);
-void GetNextChat(char &ch);
+void GetNextChar(char &ch);
 bool isdigit(char ch);
 bool isoperator(char ch);
+bool Get2Operands(LStack<double> &OPEN,double &x,double &y);
 
 
 int main() {
-    LStack<double> OPEN;
-    LStack<char> OPTR;
+    LStack<double> OPND;  // 操作数栈
+    LStack<char> OPTR;    // 运算符栈
+
+    OPTR.push('=');       // 初始栈底符号
+
+    char ch;
+    GetNextChar(ch);
+
+    while (ch != '=') 
+    //（1）处理单目负号（负数情况），压入opnd栈
+       
+    //（2）处理小数和整数，压入 OPND
+
+    //（3）处理运算符，压入 OPTR 或计算
+
+    //（4）处理 '=' 后，把栈中剩余运算符全部计算
+    cout << "Result = " << OPND.topValue() << endl;
+    return 0;
     
 }
 //蔡志远编写的isp和osp函数
