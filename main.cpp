@@ -21,13 +21,8 @@ int main()
     char ch;
     GetNextChar(ch);
 
-    while (ch != '=')
+    while (ch != '=' && ch != '\0')
     {
-        // （1）盛佳一：处理单目负号（负数情况），压入opnd栈
-        if (ch == '-')
-        {  
-            OPND.push(0); // 压入0，变成0-x的形式
-        }
         // （2）处理小数和整数，压入 OPND
         if (isdigit(ch) || ch == '.')
         {
@@ -45,23 +40,23 @@ int main()
             }
             else
             {
-                cerr << "ERROR:无效的数字：" << numStr << endl;
+                cerr << "ERROR:invalid number" << numStr << endl;
                 return -1;
             }
+            continue; // 读取数字后继续下一轮
         }
 
-
-    //（3）处理运算符，压入 OPTR 或计算
-        else if(isoperator(ch)){
+        //（3）处理运算符，压入 OPTR 或计算
+        if(isoperator(ch)){
             if(isp(OPTR.topValue()) < osp(ch)){
                 OPTR.push(ch);
+                GetNextChar(ch);
             }
-
             else if(isp(OPTR.topValue()) > osp(ch)){
                 double x,y,r;
                 //操作数不足错误处理
                 if(!Get2Operands(OPND,x,y)){
-                    cout<<"ERROR:操作数不足"<<endl;
+                    cout<<"ERROR:need more operand"<<endl;
                     return 0;
                 }
                 char op=OPTR.pop();
@@ -73,7 +68,12 @@ int main()
             }
             else{ //相等情况，弹出栈顶运算符
                 OPTR.pop();
+                GetNextChar(ch);
             }
+        }
+        else {
+            cerr << "ERROR:unknown ch" << ch << "'" << endl;
+            return -1;
         }
     }
     // （4）处理 '=' 后，把栈中剩余运算符全部计算
@@ -83,7 +83,7 @@ int main()
         // 操作数不足错误处理
         if (!Get2Operands(OPND, x, y))
         {
-            cout << "ERROR:操作数不足" << endl;
+            cout << "ERROR:need more operand" << endl;
             return 0;
         }
         char op = OPTR.pop();
@@ -121,6 +121,8 @@ int isp(char op)
         return 7;
     case '&':
         return 7;
+    default:
+        return 0;
     }
 } // 给出各个运算符的栈内优先级
 int osp(char op)
@@ -147,6 +149,7 @@ int osp(char op)
         return 6;
     case '&':
         return 6;
+    
     }
 } // 给出各个运算符的栈外优先级
 
