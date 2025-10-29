@@ -36,7 +36,17 @@ int main() {
     }
     //（4）处理 '=' 后，把栈中剩余运算符全部计算
     while (OPTR.topValue() != '=') {
-        
+        double x, y, r;
+        //操作数不足错误处理
+        if (!Get2Operands(OPND, x, y)) {
+            cout << "ERROR:操作数不足" << endl;
+            return 0;
+        }
+        char op = OPTR.pop();
+        if (!cal(op, y, x, r)) {
+            return 0;
+        }
+        OPND.push(r);
     }
     cout << "Result = " << OPND.topValue() << endl;
     return 0;
