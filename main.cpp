@@ -21,9 +21,9 @@ int main() {
     GetNextChar(ch);
 
     while (ch != '=') {
-    //（1）处理单目负号（负数情况），压入opnd栈
+    //（1）盛佳一编写：处理单目负号（负数情况），压入opnd栈
        if(ch=='-'){
-           
+            OPND.push(0);
        }
     //（2）处理小数和整数，压入 OPND
          if(isdigit(ch)||ch=='.'){
