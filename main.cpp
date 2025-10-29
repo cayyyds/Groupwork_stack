@@ -31,7 +31,27 @@ int main() {
          }
     //（3）处理运算符，压入 OPTR 或计算
         else if(isoperator(ch)){
-            
+            if(isp(OPTR.topValue()) < osp(ch)){
+                OPTR.push(ch);
+            }
+
+            else if(isp(OPTR.topValue()) > osp(ch)){
+                double x,y,r;
+                //操作数不足错误处理
+                if(!Get2Operands(OPND,x,y)){
+                    cout<<"ERROR:操作数不足"<<endl;
+                    return 0;
+                }
+                char op=OPTR.pop();
+                if(!cal(op,y,x,r)){
+                    return 0;
+                }
+                OPND.push(r);
+                continue; //重新比较栈顶运算符和当前运算符
+            }
+            else{ //相等情况，弹出栈顶运算符
+                OPTR.pop();
+            }
         }
     }
     //（4）处理 '=' 后，把栈中剩余运算符全部计算
