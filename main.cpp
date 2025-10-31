@@ -12,7 +12,16 @@ bool isoperator(char ch);
 bool Get2Operands(LStack<double> &OPEN, double &x, double &y);
 
 int main()
-{
+{   
+    cout << "========================================================================================" << endl;
+    cout << "                          Expression evaluation software" << endl;
+    cout << "========================================================================================" << endl;
+    cout << "Function Description:" << endl;
+    cout << "1. Supported operations: , -, *, /, % (modulus), & (square root), ^ (exponentiation)" << endl;
+    cout << "2. Supports parentheses (), and expressions end with '='" << endl;
+    cout << "3. Example: (-2)*3^5   23/(45 67) - 17%3/8&2 ="<< endl;
+    cout << "========================================================================================" << endl << endl;
+    cout << "Please enter an expression " << endl;
     LStack<double> OPND; // 操作数栈
     LStack<char> OPTR;   // 运算符栈
 
@@ -237,3 +246,6 @@ void GetNextChar(char &ch)
         ch = '\0'; // 若到达输入末尾（EOF），将 ch 设为\0，方便外部判断
     }
 }
+// ui
+
+
