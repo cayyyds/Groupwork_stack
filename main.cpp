@@ -34,8 +34,12 @@ int main()
     {
         // （1）盛佳一：处理单目负号（负数情况），压入opnd栈
         if (ch == '-')
-        {  
+        {   
+            if (OPND.length()==0)
             OPND.push(0); // 压入0，变成0-x的形式
+            if (OPTR.length()!=0 && OPTR.topValue() == '(')
+                OPND.push(0); // 压入0，变成0-x的形式
+                
         }
         // （2）处理小数和整数，压入 OPND
         if (isdigit(ch) || ch == '.')
