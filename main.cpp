@@ -28,19 +28,20 @@ int main()
     OPTR.push('='); // 初始栈底符号
 
     char ch;
+    char prevCh; //前一个ch的值
     GetNextChar(ch);
+    prevCh = ch; //赋值前一个ch的值
 
     while (ch != '=' && ch != '\0')
     {
         // （1）盛佳一：处理单目负号（负数情况），压入opnd栈
         if (ch == '-')
         {   
-            if (OPND.length()==0)
+            if (OPND.length()==0 || prevCh == '(' ) //如果负号前没有数值，且前一个输入的字符为'('
             OPND.push(0); // 压入0，变成0-x的形式
-            if (OPTR.length()!=0 && OPTR.topValue() == '(')
-                OPND.push(0); // 压入0，变成0-x的形式
                 
         }
+        prevCh = ch; //赋值前一个ch的值
         // （2）处理小数和整数，压入 OPND
         if (isdigit(ch) || ch == '.')
         {
