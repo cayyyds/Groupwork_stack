@@ -33,6 +33,11 @@ int main()
     GetNextChar(ch);
     prevCh = ch; //赋值前一个ch的值
 
+    if(ch=='='){
+        cerr<<"ERROR: empty expression! Please enter a valid expression before '='." << endl;
+        return -1;
+    }
+
     while (ch != '=' && ch != '\0')
     {
         // （1）盛佳一：处理单目负号（负数情况），压入opnd栈
