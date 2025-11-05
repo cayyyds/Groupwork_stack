@@ -2,6 +2,7 @@
 #include <cmath>
 #include "Stack.h"
 #include <sstream>
+#include <iomanip>
 using namespace std;
 int isp(char op);
 int osp(char op);
@@ -112,7 +113,8 @@ int main()
         }
         OPND.push(r);
     }
-    cout << "Result = " << OPND.topValue() << endl;
+    //结果保留两位小数
+    cout << "Result = " << fixed << setprecision(2) << OPND.topValue() << endl;
     return 0;
 }
 // 蔡志远编写的isp和osp函数
