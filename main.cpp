@@ -197,40 +197,45 @@ bool cal(char op, double x, double y, double &r)
 {
     switch (op)
     {
-    case '+': // 加法
+    case '+': // Addition
         r = x + y;
         return true;
-    case '-': // 减法
+    case '-': // Subtraction
         r = x - y;
         return true;
-    case '*': // 乘法
+    case '*': // Multiplication
         r = x * y;
         return true;
-    case '/': // 除法
+    case '/': // Division
         if (y == 0)
         {
-            cerr << "ERROR被除数不能为0" << endl;
-            return false; // 除0错误
+            cerr << "ERROR: Divisor cannot be zero in division." << endl;
+            return false; // Division by zero error
         }
         r = x / y;
         return true;
-    case '%': // 取模
-        // 对于 double 使用 fmod
-        r = fmod(x, y);
-        return true;
-    case '^': // 乘方
-        r = pow(x, y);
-        return true;
-    case '&': // 开方
+    case '%': // Modulus
         if (y == 0)
         {
-            cerr << "ERROR:y不能为0" << endl;
-            return false; // 开0次方无意义
+            cerr << "ERROR: Divisor cannot be zero in modulus operation." << endl;
+            return false; // Modulus by zero error
+        }
+        // Using fmod for double type
+        r = fmod(x, y);
+        return true;
+    case '^': // Exponentiation
+        r = pow(x, y);
+        return true;
+    case '&': // Root
+        if (y == 0)
+        {
+            cerr << "ERROR: Root index cannot be zero." << endl;
+            return false; // Zero root is meaningless
         }
         r = pow(x, 1.0 / y);
         return true;
     default:
-        cerr << "ERROR:这是一个未知操作符" << op << endl;
+        cerr << "ERROR: Unknown operator: " << op << endl;
         return false;
     }
 }
