@@ -13,15 +13,16 @@ bool isoperator(char ch);
 bool Get2Operands(LStack<double> &OPEN, double &x, double &y);
 
 int main()
-{   
+{
     cout << "========================================================================================" << endl;
     cout << "                          Expression evaluation software" << endl;
     cout << "========================================================================================" << endl;
     cout << "Function Description:" << endl;
     cout << "1. Supported operations: , -, *, /, % (modulus), & (square root), ^ (exponentiation)" << endl;
     cout << "2. Supports parentheses (), and expressions end with '='" << endl;
-    cout << "3. Example: (-2)*3^5   23/(45 67) - 17%3/8&2 ="<< endl;
-    cout << "========================================================================================" << endl << endl;
+    cout << "3. Example: (-2)*3^5   23/(45 67) - 17%3/8&2 =" << endl;
+    cout << "========================================================================================" << endl
+         << endl;
     cout << "Please enter an expression " << endl;
     LStack<double> OPND; // 操作数栈
     LStack<char> OPTR;   // 运算符栈
@@ -29,12 +30,13 @@ int main()
     OPTR.push('='); // 初始栈底符号
 
     char ch;
-    char prevCh; //前一个ch的值
+    char prevCh; // 前一个ch的值
     GetNextChar(ch);
-    prevCh = ch; //赋值前一个ch的值
+    prevCh = ch; // 赋值前一个ch的值
 
-    if(ch=='='){
-        cerr<<"ERROR: empty expression! Please enter a valid expression before '='." << endl;
+    if (ch == '=')
+    {
+        cerr << "ERROR: empty expression! Please enter a valid expression before '='." << endl;
         return -1;
     }
 
@@ -42,61 +44,97 @@ int main()
     {
         // （1）盛佳一：处理单目负号（负数情况），压入opnd栈
         if (ch == '-')
-        {   
-            if (OPND.length()==0 || prevCh == '(' ) //如果负号前没有数值，且前一个输入的字符为'('
-            OPND.push(0); // 压入0，变成0-x的形式
-                
+        {
+            if (OPND.length() == 0 || prevCh == '(') // 如果负号前没有数值，且前一个输入的字符为'('
+                OPND.push(0);                        // 压入0，变成0-x的形式
         }
-        prevCh = ch; //赋值前一个ch的值
+        prevCh = ch; // 赋值前一个ch的值
         // （2）处理小数和整数，压入 OPND
         if (isdigit(ch) || ch == '.')
         {
             string numStr;
+            bool hasDot = false;
+
+            // 处理如1.1.1的情况
             while (isdigit(ch) || ch == '.')
             {
+                if (ch == '.')
+                {
+                    if (hasDot)
+                    {
+                        cerr << "ERROR: Illegal Decimal Point  '" << numStr + ch << "'" << endl;
+                        return -1;
+                    }
+                    hasDot = true;
+                }
+
                 numStr += ch;
                 GetNextChar(ch);
             }
+
+            // 检查数字是否合法
+            if (numStr == ".")
+            {
+                cerr << "ERROR: A Single Decimal Point Is Illegal" << endl;
+                return -1;
+            }
+
             stringstream ss(numStr);
             double num;
             if (ss >> num)
             {
+                // 数字范围
+                const double MAX_NUMBER = 2147483647;
+                const double MIN_NUMBER = -2147483648;
+                if (num > MAX_NUMBER || num < MIN_NUMBER)
+                {
+                    cerr << "ERROR: Number Is Out Of Range " << num << endl;
+                    return -1;
+                }
+
                 OPND.push(num);
             }
             else
             {
-                cerr << "ERROR:invalid number" << numStr << endl;
+                cerr << "ERROR: Invalid Number '" << numStr << "'" << endl;
                 return -1;
             }
-            continue; // 读取数字后继续下一轮
+            continue;
         }
 
-        //（3）处理运算符，压入 OPTR 或计算
-        if(isoperator(ch)){
-            if(isp(OPTR.topValue()) < osp(ch)){
+        // （3）处理运算符，压入 OPTR 或计算
+        if (isoperator(ch))
+        {
+            if (isp(OPTR.topValue()) < osp(ch))
+            {
                 OPTR.push(ch);
                 GetNextChar(ch);
             }
-            else if(isp(OPTR.topValue()) > osp(ch)){
-                double x,y,r;
-                //操作数不足错误处理
-                if(!Get2Operands(OPND,x,y)){
-                    cout<<"ERROR:need more operand"<<endl;
+            else if (isp(OPTR.topValue()) > osp(ch))
+            {
+                double x, y, r;
+                // 操作数不足错误处理
+                if (!Get2Operands(OPND, x, y))
+                {
+                    cout << "ERROR:need more operand" << endl;
                     return 0;
                 }
-                char op=OPTR.pop();
-                if(!cal(op,y,x,r)){
+                char op = OPTR.pop();
+                if (!cal(op, y, x, r))
+                {
                     return 0;
                 }
                 OPND.push(r);
-                continue; //重新比较栈顶运算符和当前运算符
+                continue; // 重新比较栈顶运算符和当前运算符
             }
-            else{ //相等情况，弹出栈顶运算符
+            else
+            { // 相等情况，弹出栈顶运算符
                 OPTR.pop();
                 GetNextChar(ch);
             }
         }
-        else {
+        else
+        {
             cerr << "ERROR:unknown ch" << ch << "'" << endl;
             return -1;
         }
@@ -118,7 +156,7 @@ int main()
         }
         OPND.push(r);
     }
-    //结果保留两位小数
+    // 结果保留两位小数
     cout << "Result = " << fixed << setprecision(2) << OPND.topValue() << endl;
     return 0;
 }
@@ -175,7 +213,6 @@ int osp(char op)
         return 6;
     case '&':
         return 6;
-    
     }
 } // 给出各个运算符的栈外优先级
 
@@ -264,5 +301,3 @@ void GetNextChar(char &ch)
     }
 }
 // ui
-
-
